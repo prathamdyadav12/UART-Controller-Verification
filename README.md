@@ -97,41 +97,8 @@ The **Universal Asynchronous Receiver-Transmitter (UART)** is a serial communica
 ---
 
 ## 🧱 Testbench Architecture
+<img width="2978" height="2477" alt="image" src="https://github.com/user-attachments/assets/7db31245-5ceb-4de4-8db7-860ad465a12c" />
 
-The UVM-based verification environment includes:
-+-----------------------------------------------------------------------+
-|                             TESTBENCH TOP                             |
-|                                                                       |
-|  +--------------------+                     +----------------------+  |
-|  |  Clock / Reset     |                     |  Test Controller     |  |
-|  |  Generators        |                     |  (Stimulus & Sequen) |  |
-|  +---------+----------+                     +----------+-----------+  |
-|            |                                           |              |
-|            v                                           v              |
-|  +--------------------+                     +----------------------+  |
-|  | Bus Functional     |                     | Scoreboard /         |  |
-|  | Model (BFM) / Agent|                     | Checker              |  |
-|  +----+---------+-----+                     +----------+-----------+  |
-|       |         ^                                      ^              |
-|  Data |         | Serial RX                            | Data         |
-|  Stim |         |                                      | Compare      |
-|       v         |                                      |              |
-|  +----+---------+--------------------------------------+-----------+  |
-|  |                                                                 |  |
-|  |                    DUT: UART TOP CONTROLLER                     |  |
-|  |                                                                 |  |
-|  |   +-------------------+                     +---------------+   |  |
-|  |   |   Baud Generator  |                     |  Transmitter  |==>| Serial
-|  |   +---------+---------+                     +-------+-------+   |  | TX
-|  |             |                                       ^           |  |
-|  |             +---------------+                       |           |  |
-|  |                             |                       |           |  |
-|  |                             v                       |           |  |
-|  |                     +---------------+               |           |  |
-|  |                     |    Receiver   |<--------------+           |  |
-|  |                     +---------------+    (Loopback Test)        |  |
-|  +-----------------------------------------------------------------+  |
-+-----------------------------------------------------------------------+
 
 ---
 
@@ -189,5 +156,5 @@ Nine major test scenarios were verified to ensure full UART functionality:
 
 ## 🏁 Conclusion
 
-This project successfully verified the **APB-based UART Master Core RTL** using a **UVM-based testbench**, achieving **100% functional coverage** across multiple UART operation modes and error conditions.
+This project successfully verified the **APB-based UART Master Core RTL** using a **UVM-based testbench**, achieving **95% functional coverage** across multiple UART operation modes and error conditions.
  The verification environment is scalable for integrating more agents and extending coverage for advanced UART configurations.
