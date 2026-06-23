@@ -99,17 +99,39 @@ The **Universal Asynchronous Receiver-Transmitter (UART)** is a serial communica
 ## 🧱 Testbench Architecture
 
 The UVM-based verification environment includes:
-
-- **2 APB Agents** – Each connected to a UART DUV (Design Under Verification)
-- **Driver, Monitor, and Sequencer** per agent
-- **Scoreboard** for end-to-end checking
-- **Assertions and Coverage Collection**
-
-![Block Diagram](docs/block_diagram.png)
-
-![Testbench Architecture](docs/tb_architecture.png)
-
-Each UART core transmits and receives data through APB interface transactions, and the verification environment checks protocol compliance and data integrity.
++-----------------------------------------------------------------------+
+|                             TESTBENCH TOP                             |
+|                                                                       |
+|  +--------------------+                     +----------------------+  |
+|  |  Clock / Reset     |                     |  Test Controller     |  |
+|  |  Generators        |                     |  (Stimulus & Sequen) |  |
+|  +---------+----------+                     +----------+-----------+  |
+|            |                                           |              |
+|            v                                           v              |
+|  +--------------------+                     +----------------------+  |
+|  | Bus Functional     |                     | Scoreboard /         |  |
+|  | Model (BFM) / Agent|                     | Checker              |  |
+|  +----+---------+-----+                     +----------+-----------+  |
+|       |         ^                                      ^              |
+|  Data |         | Serial RX                            | Data         |
+|  Stim |         |                                      | Compare      |
+|       v         |                                      |              |
+|  +----+---------+--------------------------------------+-----------+  |
+|  |                                                                 |  |
+|  |                    DUT: UART TOP CONTROLLER                     |  |
+|  |                                                                 |  |
+|  |   +-------------------+                     +---------------+   |  |
+|  |   |   Baud Generator  |                     |  Transmitter  |==>| Serial
+|  |   +---------+---------+                     +-------+-------+   |  | TX
+|  |             |                                       ^           |  |
+|  |             +---------------+                       |           |  |
+|  |                             |                       |           |  |
+|  |                             v                       |           |  |
+|  |                     +---------------+               |           |  |
+|  |                     |    Receiver   |<--------------+           |  |
+|  |                     +---------------+    (Loopback Test)        |  |
+|  +-----------------------------------------------------------------+  |
++-----------------------------------------------------------------------+
 
 ---
 
@@ -138,8 +160,8 @@ Nine major test scenarios were verified to ensure full UART functionality:
 - ✅ Verification goals and protocol compliance met
 
 ### Coverage Summary
+<img width="1919" height="872" alt="image" src="https://github.com/user-attachments/assets/e04b5a78-b9c9-4c67-8f5f-931b40c1d042" />
 
-![Coverage](docs/coverage.png)
 
 ### UART Data Frame
 
@@ -147,7 +169,8 @@ Nine major test scenarios were verified to ensure full UART functionality:
 
 ### Waveform Example
 
-![Waveform](docs/wave_form.png)
+<img width="884" height="434" alt="image" src="https://github.com/user-attachments/assets/12c8a754-ada1-4b5e-a026-a40fe6bcb320" />
+
 
 ### Terminal Output
 
